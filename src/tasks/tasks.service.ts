@@ -5,10 +5,14 @@ import { CreateTaskDto } from './dto/create-task-dto';
 
 @Injectable()
 export class TasksService {
-    private tasks: Task[]= [];
+    private tasks: Task[] = [];
 
     getAllTasks(): Task[] {
         return this.tasks;
+    }
+
+    geTaskById(id: string): Task {
+        return this.tasks.find(task => task.id = id);
     }
 
     createTask(createTaskDto: CreateTaskDto): Task {
@@ -20,8 +24,12 @@ export class TasksService {
             description,
             status: TasksStatus.OPEN,
         }
-        
+
         this.tasks.push(task);
         return task;
+    }
+
+    deleteTaskById(id: string): void{
+        this.tasks = this.tasks.filter(task => task.id !== id);
     }
 }
